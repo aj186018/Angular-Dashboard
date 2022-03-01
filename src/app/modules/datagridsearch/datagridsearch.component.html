@@ -1,0 +1,16 @@
+<mat-toolbar>
+    <mat-toolbar-row>                 
+        <span>{{'Global Search on RDM Data Grid (Road Map item)'}}</span>       
+</mat-toolbar-row>  
+</mat-toolbar> 
+
+<!-- div for even,odd and mixed cards in dashboard-->
+<!--div *ngIf="gridLayout==='even'" -->
+    <div fxLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="10px" class="stats-cards">        
+        <ng-container>
+            <mat-card class="table">                                  
+                 <app-widget-table [pageSize]="10" [title]="title"  [displayColumns]="displayColumns" [data]="tableData"></app-widget-table>
+            </mat-card>
+        </ng-container>
+    </div>
+

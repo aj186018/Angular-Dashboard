@@ -1,0 +1,18 @@
+<h2 mat-dialog-title>Select Metrics for your dashboard</h2>
+<mat-dialog-content class="mat-typography">
+<mat-selection-list #list [(ngModel)]="selectedMetrics" (ngModelChange)="onNgModelChange($event)">
+    <mat-list-option *ngFor="let metric of typeOfMetrics" [value]="metric">
+        <h3 mat-line>{{metric.title}}</h3>
+        <p mat-line class="demo-secondary-text">{{metric.desc}} | {{metric.widget}} chart </p>      
+    </mat-list-option>
+  </mat-selection-list>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button [mat-dialog-close]="true" cdkFocusInitial (click)="confirm()">Save</button>
+</mat-dialog-actions>
+<!--<div>
+    <ng-container *ngFor="let metric of selectedMetrics">
+        {{metric.title}} - {{metric.widget}}
+    </ng-container>
+</div>-->

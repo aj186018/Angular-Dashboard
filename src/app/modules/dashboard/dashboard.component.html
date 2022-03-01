@@ -1,0 +1,90 @@
+<!--<mat-toolbar>
+    <mat-toolbar-row>                 
+        <span>{{'My Dashboard'}}</span>      
+        <div fxFlex fxLayoutAlign="flex-end">    
+            <mat-form-field style="padding-right: 30px;">
+                <mat-select #periodSelectLoad placeholder="Period">
+                    <mat-option *ngFor="let period of periods" [value]="period.value">
+                        {{period.viewValue}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>  
+            <button (click)="openDashboardItems()" mat-fab color="primary" class="app-fab">
+                <mat-icon aria-label="Example icon-button with a heart icon">add</mat-icon>
+              </button> 
+        </div>    
+</mat-toolbar-row>  
+</mat-toolbar> -->
+<button (click)="openDashboardItems()" mat-fab color="primary" class="app-fab">
+    <mat-icon aria-label="Example icon-button with a heart icon">add</mat-icon>
+  </button> 
+  <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="5px" class="stats-cards">
+    <mat-card fxFlex="20">
+        <app-widget-card label="Latest RDM Release" text1="6.02.02" icon="build" text2="09/24/2021" text3="" [data]="cards"></app-widget-card>
+    </mat-card>
+    <mat-card fxFlex="20">
+        <app-widget-card label="RDM Active Users" text1="2397" icon="trending_down" text2="8%" text3="of last month"  [data]="cards"></app-widget-card>
+    </mat-card>  
+    <mat-card fxFlex="20">
+        <app-widget-card label="Active BRF & DCRs" text1="14" icon="trending_up" text2="5%" text3="of last month" [data]="cards"></app-widget-card>
+    </mat-card>   
+    <mat-card fxFlex="20">
+        <app-widget-card label="RDM Code Sets" text1="" icon="" text2="" text3="Total:534, Blng:233, Oth:332" [data]="cards"></app-widget-card>
+    </mat-card>
+    <mat-card fxFlex="20">
+        <app-widget-card label="RDM Documents" text1="" icon="link" text2="Sharepoint" text3=""  [data]="cards"></app-widget-card>
+    </mat-card>  
+</div>
+
+<!-- div for even,odd and mixed cards in dashboard-->
+<!--div *ngIf="gridLayout==='even'" -->
+<div *ngIf="nontablecards.length > 0">
+    <ng-container *ngFor="let item of nontablecards ; let i = index;let even = even;">
+        <div fxLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="10px" class="stats-cards">        
+            <ng-container>
+            <mat-card fxFlex="{{col.width}}" *ngFor="let col of item.row; let j = index;">
+               <!-- <mat-card-title>
+                    {{col.pos}}
+                    <button mat-icon-button class="more-button">
+                         <mat-icon>close</mat-icon>
+                    </button>                   
+                </mat-card-title>  --> 
+                <div id="col.name">                    
+                    <app-widget-pie *ngIf="col.widget==='pie'" [title]="col.title"  [data]="dashboardData[col.pos-1]"></app-widget-pie>
+                    <app-widget-bar *ngIf="col.widget==='bar'" [title]="col.title" [xaxis]="xaxis" [data]="dashboardData[col.pos-1]"></app-widget-bar>
+                    <app-widget-line *ngIf="col.widget==='line'" [title]="col.title" [data]="dashboardData[col.pos-1]"></app-widget-line>
+                    <app-widget-card *ngIf="col.widget==='trend'" label="New Users"  total="12k" percentage="50" [data]="dashboardData[col.pos-1]"></app-widget-card>            
+                    <app-widget-table *ngIf="col.widget==='table'" [title]="col.title"  [displayColumns]="col.displayColumns" [data]="dashboardData[col.pos-1]"></app-widget-table>
+                </div>        
+           </mat-card>
+        </ng-container>
+         </div>   
+        <!--     <br>
+     <mat-divider></mat-divider>-->
+        
+    </ng-container>    
+</div>
+<div   *ngIf="nontablecards.length === 0">
+   <mat-card fxLayoutAlign="center center" style="height: 250px;">
+       <mat-card-title>
+         Add components to your dashboard by clicking  <mat-icon aria-label="Example icon-button with a heart icon">add</mat-icon> at top right
+        </mat-card-title>
+   </mat-card>
+</div>
+<!-- div for tables in dashboard
+<div>
+    <ng-container *ngFor="let i of tablecards; let i = index;let even = even;">
+        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
+            TABLE - {{i}}
+        </div>
+        <br>
+        <mat-divider></mat-divider>
+        <br>
+    </ng-container>
+     <div *ngIf="col.widget==='table'">
+                    TABLE - {{i}}
+                </div>
+
+</div>-->
+
+
